@@ -1,30 +1,52 @@
 package com.example.demo;
 
+
+import org.springframework.stereotype.Component;
+
+@Component("Equipment")
 public class Equipment {
 
-    private String id;
-
-    private String content;
-
-    public Equipment(String id, String content) {
-        this.id = id;
-        this.content = content;
+    public void setTrainingId(String trainingId) {
+        this.trainingId = trainingId;
     }
 
-    public String getId() {
-        return id;
+    private String trainingId;
+
+    private String distance;
+
+    private String actualDistance;
+
+    private String duration;
+
+    public Equipment() {
     }
 
-    public String getContent() {
-        return content;
+    public String getDistance() {
+        return distance;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getDuration() {
+        return duration;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getActualDistance() {
+        return actualDistance;
+    }
+
+    public void setActualDistance(String actualDistance) {
+        this.actualDistance = actualDistance;
+    }
+
+    public String getTrainingId() {
+        return trainingId;
     }
 
 }

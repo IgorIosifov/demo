@@ -7,18 +7,23 @@ import org.springframework.web.bind.annotation.*;
     public class Controller {
         Equipment equipment = new Equipment("no data", "no data");
 
-        @GetMapping("/")
+        @GetMapping("/trainee")
         public Equipment get() {
             equipment.setId("echo"+equipment.getId());
             equipment.setContent("echo"+equipment.getContent());
             return equipment;
         }
 
-        @PostMapping("/")
+        @PostMapping("/trainee")
         public Equipment post(@RequestBody Equipment newEquipment) {
             equipment.setId(newEquipment.getId());
             equipment.setContent(newEquipment.getContent());
             return equipment;
         }
+        @GetMapping("/")
+        public String loginPage() {
+            return "index";
+        }
+
 
 }

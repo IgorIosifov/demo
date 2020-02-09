@@ -12,11 +12,11 @@ public class Equipment {
 
     private String trainingId;
 
-    private String distance;
+    private String distance = "0";
 
-    private String actualDistance;
+    private String actualDistance = "0";
 
-    private String duration;
+    private String duration = "0";
 
     public Equipment() {
     }

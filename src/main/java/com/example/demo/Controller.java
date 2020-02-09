@@ -22,12 +22,7 @@ import java.io.IOException;
             this.equipment = equipment;
 
         }
-//        @GetMapping("/trainee")
-//        public Equipment get() {
-//            equipment.setLoad("echo");
-//            equipment.setDuration("echo");
-//            return equipment;
-//        }
+
 
         @GetMapping("/")
         public String loginPage(Model model) {
@@ -36,7 +31,14 @@ import java.io.IOException;
         }
 
         @PostMapping("/")
-        public String post(@RequestBody Equipment newEquipment, Model model) {
+        public String post(@RequestBody Equipment newEquipment, Model model, HttpServletRequest request, HttpServletResponse response) {
+            try {
+                response.setStatus(201);
+                response.getWriter().flush();
+                response.getWriter().close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             equipment.setTrainingId(newEquipment.getTrainingId());
             Integer dur = Integer.parseInt(newEquipment.getDuration()); //min
             Integer factLoad = 0;
@@ -54,6 +56,8 @@ import java.io.IOException;
             }
 
             model.addAttribute("equipment",equipment);
+
+
             return "index";
         }
 

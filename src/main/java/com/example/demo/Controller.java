@@ -20,6 +20,7 @@ import java.io.IOException;
         @Autowired
         public void setEquipment(Equipment equipment) {
             this.equipment = equipment;
+
         }
 //        @GetMapping("/trainee")
 //        public Equipment get() {
@@ -81,7 +82,8 @@ import java.io.IOException;
     public String results(HttpServletRequest request, HttpServletResponse response) {
 
         try {
-            response.getWriter().write(equipment.getTrainingId()+";"+equipment.getActualDistance());
+            //{ "trainingId":equipment.getTrainingId(), "distance":equipment.getActualDistance()}
+            response.getWriter().write("{\"trainingId\":"+equipment.getTrainingId() + ",\"distance\":"+equipment.getActualDistance()+"}");
             response.getWriter().flush();
             response.getWriter().close();
         } catch (IOException e) {

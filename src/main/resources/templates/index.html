@@ -12,9 +12,7 @@
 <div class="container">
     <!--/*@thymesVar id="equipment" type="com.example.demo.Equipment"*/-->
     <span class="text" th:text= "'Distance ' + ${equipment.getDistance()} + 'm'"> </span>
-    <br>
     <span class="text" th:text="'Remaining time ' + ${equipment.getDuration()} + 'min'"> </span>
-    <br>
     <span class="text" th:text="'Actual distance ' + ${equipment.getActualDistance()} + 'm'"> </span>
 </div>
 <meta http-equiv="Refresh" content="5" />

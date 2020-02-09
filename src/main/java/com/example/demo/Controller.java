@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
         @GetMapping("/")
         public Equipment get() {
-            equipment.setId("22222222222222222");
-            equipment.setContent("222222222222222222222");
+            equipment.setId("echo"+equipment.getId());
+            equipment.setContent("echo"+equipment.getContent());
             return equipment;
         }
 

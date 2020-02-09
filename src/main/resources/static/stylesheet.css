@@ -1,0 +1,6 @@
+.container{
+    background-image: url("dark.jpg");
+    background-size: cover;
+    margin: 0;
+    height: 100%;
+}

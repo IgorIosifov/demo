@@ -87,7 +87,7 @@ import java.io.IOException;
 
         try {
             //{ "trainingId":equipment.getTrainingId(), "distance":equipment.getActualDistance()}
-            response.getWriter().write("{\"trainingId\":\""+equipment.getTrainingId() + "\",\"distance\":\""+equipment.getActualDistance()+"\"}");
+            response.getWriter().write(equipment.getTrainingId()+";"+ equipment.getActualDistance());
             response.getWriter().flush();
             response.getWriter().close();
         } catch (IOException e) {

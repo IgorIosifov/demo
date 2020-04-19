@@ -111,7 +111,7 @@ public class Controller {
     private List<User> allUsers() {
         User user1 = new User(
                 1,
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU",
+                "",
                 false,
                 "Igor I.",
                 "OK",

@@ -96,49 +96,17 @@ import java.util.List;
     public String users(HttpServletRequest request, HttpServletResponse response) {
 
         try {
-            response.getWriter().write(propUsers());
+            String res= "{\"users\":" + allUsers().toString()+"}";
+            response.getWriter().write(res);
             response.addHeader("Access-Control-Allow-Origin", "*");
-            response.setContentType("application/json");
+//            response.setContentType("application/json");
             response.getWriter().flush();
             response.getWriter().close();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return "index";
-    }
 
-    private String propUsers() {
-        return "{\n" +
-                "    \"users\": [\n" +
-                "        {\n" +
-                "               id: 1,\n" +
-                "               avatar: 'https: //encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU',\n" +
-                "               followed: false,\n" +
-                "               fullName: 'Igor I.',\n" +
-                "               status: 'OK',\n" +
-                "               location: {city: 'Vlasikha', country: 'Russia'\n" +
-                "            }\n" +
-                "        },\n" +
-                "        {\n" +
-                "               id: 2,\n" +
-                "               avatar: 'https: //encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU',\n" +
-                "               followed: true,\n" +
-                "               fullName: 'Timur G.',\n" +
-                "               status: 'OKOK',\n" +
-                "               location: {city: 'Moscow', country: 'Russia'\n" +
-                "            }\n" +
-                "        },\n" +
-                "        {\n" +
-                "               id: 3,\n" +
-                "               avatar: 'https: //encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU',\n" +
-                "               followed: false,\n" +
-                "               fullName: 'Andrey S.',\n" +
-                "               status: 'OKOkOk',\n" +
-                "               location: {city: 'Iron', country: 'Russia'\n" +
-                "            }\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}";
     }
     private List<String> allUsers() {
             String user1 = "{\n" +

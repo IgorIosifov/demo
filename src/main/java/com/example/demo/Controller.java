@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.google.gson.Gson;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -94,11 +93,11 @@ import java.util.List;
 
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public void users(HttpServletRequest request, HttpServletResponse response) {
+    public String users(HttpServletRequest request, HttpServletResponse response) {
 
         try {
-            Gson g = new Gson();
-;            response.getWriter().write(g.toJson(allUsers().toString()));
+            String res= "{\"users\":" + allUsers().toString()+"}";
+            response.getWriter().write(res);
             response.addHeader("Access-Control-Allow-Origin", "*");
 //            response.setContentType("application/json");
             response.getWriter().flush();
@@ -106,6 +105,8 @@ import java.util.List;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return "index";
+
     }
     private List<String> allUsers() {
             String user1 = "{" +

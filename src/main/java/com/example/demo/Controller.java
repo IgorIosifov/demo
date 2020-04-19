@@ -11,6 +11,8 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @org.springframework.stereotype.Controller
 
@@ -22,7 +24,6 @@ import java.io.IOException;
             this.equipment = equipment;
 
         }
-
 
         @GetMapping("/")
         public String loginPage(Model model) {
@@ -95,13 +96,50 @@ import java.io.IOException;
         }
         return "index";
     }
-}
 
-//    @RequestMapping(value = "/dosomething", method = RequestMethod.GET)
-//    public ModelAndView dosomething(HttpServletRequest request, HttpServletResponse response)  throws IOException {
-//        // setup your Cookie here
-//        response.setCookie(cookie)
-//        ModelAndView mav = new ModelAndView();
-//        mav.setViewName("redirect:/other-page");
-//
-//        return mav;
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public String users(HttpServletRequest request, HttpServletResponse response) {
+
+        try {
+            response.getWriter().write(allUsers().toString());
+            response.getWriter().flush();
+            response.getWriter().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "index";
+    }
+
+    private List<String> allUsers() {
+            String user1 = "{\n" +
+                    "               id: 1,\n" +
+                    "               avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU',\n" +
+                    "               followed: false,\n" +
+                    "               fullName: 'Igor I.',\n" +
+                    "               status: 'OK',\n" +
+                    "               location: {city: 'Vlasikha', country: 'Russia'}\n" +
+                    "           }";
+            String user2 = " {\n" +
+                    "               id: 2,\n" +
+                    "               avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU',\n" +
+                    "               followed: true,\n" +
+                    "               fullName: 'Timur G.',\n" +
+                    "               status: 'OKOK',\n" +
+                    "               location: {city: 'Moscow', country: 'Russia'}\n" +
+                    "           }";
+            String user3 = " {\n" +
+                    "               id: 3,\n" +
+                    "               avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU',\n" +
+                    "               followed: false,\n" +
+                    "               fullName: 'Andrey S.',\n" +
+                    "               status: 'OKOkOk',\n" +
+                    "               location: {city: 'Iron', country: 'Russia'}\n" +
+                    "           }";
+            List<String> users = new ArrayList<>();
+            users.add(user1);
+            users.add(user2);
+            users.add(user3);
+            return users;
+    }
+}

@@ -94,12 +94,12 @@ public class Controller {
 
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public void users(HttpServletRequest request, HttpServletResponse response) {
+    public void users(HttpServletRequest request, HttpServletResponse response, @RequestParam int size, @RequestParam int page) {
 
         try {
             Gson g = new Gson();
             response.setStatus(200);
-            response.getWriter().write(g.toJson(allUsers()));
+            response.getWriter().write(g.toJson(someUsers(size, page)));
             response.addHeader("Access-Control-Allow-Origin", "*");
             response.getWriter().flush();
             response.getWriter().close();
@@ -108,39 +108,26 @@ public class Controller {
         }
     }
 
-    private List<User> allUsers() {
-        User user1 = new User(
-                1,
-                "",
-                false,
-                "Igor I.",
-                "OK",
-                "Vlasikha",
-                "Russia"
-        );
-        User user2 = new User(
-                2,
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU",
-                false,
-                "Timur G.",
-                "OK2",
-                "Vlasikha2",
-                "Russi2"
-        );
-        User user3 = new User(
-                3,
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU",
-                false,
-                "Andrey S.",
-                "OK3",
-                "Vlasikha3",
-                "Russia3"
-        );
+    // size 2 page 2
+    private List<User> someUsers(int pageSize, int page) {
+        List<User> su = new ArrayList<>();
+        for (int i = pageSize*(page-1); i < pageSize*page; i++) {
+            su.add(allUsers().get(i));
+        }
+        return su;
+    }
+    List<User> users = new ArrayList<>();
 
-        List<User> users = new ArrayList<>();
-        users.add(user1);
-        users.add(user2);
-        users.add(user3);
+    private List<User> allUsers() {
+        for (int i = 1; i <30 ; i++) {
+            users.add(new User( i,
+                    "",
+                    false,
+                    "Name" + i,
+                    "OK"+ i,
+                    "City" + i,
+                    "Russia"+ i));
+        }
         return users;
     }
 }

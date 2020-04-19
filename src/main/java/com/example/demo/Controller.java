@@ -94,11 +94,11 @@ import java.util.List;
 
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String users(HttpServletRequest request, HttpServletResponse response) {
+    public void users(HttpServletRequest request, HttpServletResponse response) {
 
         try {
-
-;            response.getWriter().write(allUsers().toString());
+            Gson g = new Gson();
+;            response.getWriter().write(g.toJson("{\"users\":" + allUsers().toString()+"}"));
             response.addHeader("Access-Control-Allow-Origin", "*");
 //            response.setContentType("application/json");
             response.getWriter().flush();

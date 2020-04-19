@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.google.gson.Gson;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -97,7 +98,8 @@ import java.util.List;
 
         try {
             String res= "{\"users\":" + allUsers().toString()+"}";
-            response.getWriter().write(res);
+            Gson g = new Gson();
+;            response.getWriter().write(g.toJson(res));
             response.addHeader("Access-Control-Allow-Origin", "*");
 //            response.setContentType("application/json");
             response.getWriter().flush();

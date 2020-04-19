@@ -94,7 +94,7 @@ import java.util.List;
 
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String users(HttpServletRequest request, HttpServletResponse response) {
+    public void users(HttpServletRequest request, HttpServletResponse response) {
 
         try {
             Gson g = new Gson();
@@ -106,8 +106,6 @@ import java.util.List;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "index";
-
     }
     private List<String> allUsers() {
             String user1 = "{" +

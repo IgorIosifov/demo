@@ -11,7 +11,7 @@ import java.util.List;
 
 @org.springframework.stereotype.Controller
 
-    public class Controller {
+public class Controller {
 //        private Equipment equipment;
 //
 //        @Autowired
@@ -98,15 +98,16 @@ import java.util.List;
 
         try {
             Gson g = new Gson();
-;            response.getWriter().write(g.toJson(allUsers()));
+            response.setStatus(200);
+            response.getWriter().write(g.toJson(allUsers()));
             response.addHeader("Access-Control-Allow-Origin", "*");
-//            response.setContentType("application/json");
             response.getWriter().flush();
             response.getWriter().close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     private List<User> allUsers() {
         User user1 = new User(
                 1,
@@ -136,10 +137,10 @@ import java.util.List;
                 "Russia3"
         );
 
-            List<User> users = new ArrayList<>();
-            users.add(user1);
-            users.add(user2);
-            users.add(user3);
-            return users;
+        List<User> users = new ArrayList<>();
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+        return users;
     }
 }

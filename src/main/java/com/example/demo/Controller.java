@@ -97,9 +97,8 @@ import java.util.List;
     public String users(HttpServletRequest request, HttpServletResponse response) {
 
         try {
-            String res= "{\"users\":" + allUsers().toString()+"}";
             Gson g = new Gson();
-;            response.getWriter().write(g.toJson(res));
+;            response.getWriter().write(g.toJson(allUsers().toString()));
             response.addHeader("Access-Control-Allow-Origin", "*");
 //            response.setContentType("application/json");
             response.getWriter().flush();

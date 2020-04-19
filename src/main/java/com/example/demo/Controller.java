@@ -104,6 +104,7 @@ import java.util.List;
         try {
             response.getWriter().write("{\n\"users\":" + allUsers().toString()+"}");
             response.addHeader("Access-Control-Allow-Origin", "*");
+            response.setContentType("application/json");
             response.getWriter().flush();
             response.getWriter().close();
         } catch (IOException e) {

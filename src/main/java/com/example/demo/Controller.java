@@ -109,7 +109,7 @@ import java.util.List;
 
     }
     private List<String> allUsers() {
-            String user1 = "{\n" +
+            String user1 = "{" +
                     "               id: 1,\n" +
                     "               avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU',\n" +
                     "               followed: false,\n" +
@@ -117,7 +117,7 @@ import java.util.List;
                     "               status: 'OK',\n" +
                     "               location: {city: 'Vlasikha', country: 'Russia'}\n" +
                     "           }";
-            String user2 = " {\n" +
+            String user2 = " {" +
                     "               id: 2,\n" +
                     "               avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU',\n" +
                     "               followed: true,\n" +
@@ -125,7 +125,7 @@ import java.util.List;
                     "               status: 'OKOK',\n" +
                     "               location: {city: 'Moscow', country: 'Russia'}\n" +
                     "           }";
-            String user3 = " {\n" +
+            String user3 = " {" +
                     "               id: 3,\n" +
                     "               avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU',\n" +
                     "               followed: false,\n" +

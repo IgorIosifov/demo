@@ -102,7 +102,7 @@ import java.util.List;
     public String users(HttpServletRequest request, HttpServletResponse response) {
 
         try {
-            response.getWriter().write(allUsers().toString());
+            response.getWriter().write("allUsers:" + allUsers().toString());
             response.getWriter().flush();
             response.getWriter().close();
         } catch (IOException e) {

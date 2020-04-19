@@ -29,26 +29,26 @@ import java.util.List;
 //        @PostMapping("/")
 //        public String post(@RequestBody Equipment newEquipment, Model model, HttpServletRequest request, HttpServletResponse response) {
 //            try {
-//                response.setStatus(201);
-//                response.getWriter().flush();
-//                response.getWriter().close();
+// response.setStatus(201);
+// response.getWriter().flush();
+// response.getWriter().close();
 //            } catch (IOException e) {
-//                e.printStackTrace();
+// e.printStackTrace();
 //            }
 //            equipment.setTrainingId(newEquipment.getTrainingId());
 //            Integer dur = Integer.parseInt(newEquipment.getDuration()); //min
 //            Integer factLoad = 0;
 //            while (dur>0){
-//                equipment.setDistance(
-//                        newEquipment.getDistance());
-//                dur = decreaseDuration(dur);
-//                equipment.setDuration((dur).toString());
+// equipment.setDistance(
+//         newEquipment.getDistance());
+// dur = decreaseDuration(dur);
+// equipment.setDuration((dur).toString());
 //
-//                factLoad = increaseLoad(factLoad);
+// factLoad = increaseLoad(factLoad);
 //
-//                equipment.setActualDistance(
-//                        factLoad.toString()
-//                );
+// equipment.setActualDistance(
+//         factLoad.toString()
+// );
 //            }
 //
 //            model.addAttribute("equipment",equipment);
@@ -59,20 +59,20 @@ import java.util.List;
 
 //        public Integer decreaseDuration(Integer dur)  {
 //            try {
-//                Thread.sleep(1000);
+// Thread.sleep(1000);
 //
 //            } catch (InterruptedException e) {
-//                e.printStackTrace();
+// e.printStackTrace();
 //            }
 //            return dur -1;
 //        }
 //
 //        public Integer increaseLoad (Integer factLoad) {
 //            try {
-//                Thread.sleep(1000);
+// Thread.sleep(1000);
 //
 //            } catch (InterruptedException e) {
-//                e.printStackTrace();
+// e.printStackTrace();
 //            }
 //            return factLoad + 100;
 //        }
@@ -107,32 +107,36 @@ import java.util.List;
             e.printStackTrace();
         }
     }
-    private List<String> allUsers() {
-            String user1 = "{" +
-                    "               id: 1,\n" +
-                    "               avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU',\n" +
-                    "               followed: false,\n" +
-                    "               fullName: 'Igor I.',\n" +
-                    "               status: 'OK',\n" +
-                    "               location: {city: 'Vlasikha', country: 'Russia'}\n" +
-                    "           }";
-            String user2 = " {" +
-                    "               id: 2,\n" +
-                    "               avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU',\n" +
-                    "               followed: true,\n" +
-                    "               fullName: 'Timur G.',\n" +
-                    "               status: 'OKOK',\n" +
-                    "               location: {city: 'Moscow', country: 'Russia'}\n" +
-                    "           }";
-            String user3 = " {" +
-                    "               id: 3,\n" +
-                    "               avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU',\n" +
-                    "               followed: false,\n" +
-                    "               fullName: 'Andrey S.',\n" +
-                    "               status: 'OKOkOk',\n" +
-                    "               location: {city: 'Iron', country: 'Russia'}\n" +
-                    "           }";
-            List<String> users = new ArrayList<>();
+    private List<User> allUsers() {
+        User user1 = new User(
+                1,
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU",
+                false,
+                "Igor I.",
+                "OK",
+                "Vlasikha",
+                "Russia"
+        );
+        User user2 = new User(
+                2,
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU",
+                false,
+                "Timur G.",
+                "OK2",
+                "Vlasikha2",
+                "Russi2"
+        );
+        User user3 = new User(
+                3,
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBFC8gdBRergzgi31EKqSTlKhWUgqRwbxAtJKG9UX_iLOCVHFY&usqp=CAU",
+                false,
+                "Andrey S.",
+                "OK3",
+                "Vlasikha3",
+                "Russia3"
+        );
+
+            List<User> users = new ArrayList<>();
             users.add(user1);
             users.add(user2);
             users.add(user3);

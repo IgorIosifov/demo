@@ -103,6 +103,7 @@ import java.util.List;
 
         try {
             response.getWriter().write("{\"allUsers\":" + allUsers().toString()+"}");
+            response.addHeader("Access-Control-Allow-Origin", "*");
             response.getWriter().flush();
             response.getWriter().close();
         } catch (IOException e) {

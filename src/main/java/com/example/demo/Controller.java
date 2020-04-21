@@ -92,6 +92,21 @@ public class Controller {
 //        return "index";
 //    }
 
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+    public void user(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "id") int id) {
+        if (id<1) id=1;
+        if (id>allUsers().size()) id = allUsers().size();
+        try {
+            Gson g = new Gson();
+            response.setStatus(200);
+            response.getWriter().write(g.toJson(allUsers().get(id-1)));
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            response.getWriter().flush();
+            response.getWriter().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public void users(HttpServletRequest request, HttpServletResponse response, @RequestParam int size, @RequestParam int page) {
@@ -110,15 +125,22 @@ public class Controller {
 
     // size 2 page 2
     private List<User> someUsers(int pageSize, int page) {
+        if (pageSize>allUsers().size()) {
+            pageSize = allUsers().size();
+        }
+        System.out.println(pageSize);
+        System.out.println( allUsers().size());
         List<User> su = new ArrayList<>();
         for (int i = pageSize*(page-1); i < pageSize*page; i++) {
             su.add(allUsers().get(i));
         }
         return su;
     }
-    List<User> users = new ArrayList<>();
+
+
 
     private List<User> allUsers() {
+        List<User> users = new ArrayList<>();
         for (int i = 1; i <30 ; i++) {
             users.add(new User( i,
                     "",

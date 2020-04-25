@@ -75,14 +75,10 @@ public class Controller {
         }
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
-    public void updateUser(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "id") Integer id, @RequestBody User user) {
-        if (id.equals(currentUser) || id < 1 || id > getAllUsers().size()) {
-            response.setStatus(400);
-            response.addHeader("Access-Control-Allow-Origin", "*");
-        }
+    @RequestMapping(value = "/users", method = RequestMethod.PUT)
+    public void updateUser(HttpServletRequest request, HttpServletResponse response, @RequestBody User user) {
         try {
-            if (user.status!=null) { mapIdToUser().get(user.id).status = user.status;}
+            if (user.status!=null) { mapIdToUser().get(1).status = user.status;}
             response.setStatus(200);
             response.addHeader("Access-Control-Allow-Origin", "*");
             response.getWriter().flush();

@@ -98,7 +98,7 @@ public class Controller {
     public void follow(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "id") Integer id) {
         if (id.equals(currentUser) || id < 1 || id > allUsers().size()) {
             response.setStatus(400);
-            response.addHeader("Access-Control-Allow-Origin", "localhost:3000");
+            response.addHeader("Access-Control-Allow-Origin", "*");
         }
         try {
             followUnfollow.computeIfAbsent(currentUser, k -> new HashSet<>());
@@ -111,11 +111,11 @@ public class Controller {
             e.printStackTrace();
         }
     }
-    @RequestMapping(value = "/unfollow/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/follow/{id}", method = RequestMethod.DELETE)
     public void unfollow(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "id") Integer id) {
         if (id.equals(currentUser) || id < 1 || id > allUsers().size()) {
             response.setStatus(400);
-            response.addHeader("Access-Control-Allow-Origin", "localhost:3000");
+            response.addHeader("Access-Control-Allow-Origin", "*");
         }
         try {
             followUnfollow.get(currentUser).remove(id);

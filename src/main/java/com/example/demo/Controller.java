@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @org.springframework.stereotype.Controller
 
@@ -78,7 +77,7 @@ public class Controller {
 //        }
 
 
-//    @RequestMapping(value = "/result", method = RequestMethod.GET)
+    //    @RequestMapping(value = "/result", method = RequestMethod.GET)
 //    public String results(HttpServletRequest request, HttpServletResponse response) {
 //
 //        try {
@@ -91,15 +90,52 @@ public class Controller {
 //        }
 //        return "index";
 //    }
+    private Map<Integer, Set<Integer>> followUnfollow = new HashMap<>();
+
+    Integer currentUser = 1;
+
+    @RequestMapping(value = "/follow/{id}", method = RequestMethod.POST)
+    public void follow(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "id") Integer id) {
+        if (id.equals(currentUser) || id < 1 || id > allUsers().size()) {
+            response.setStatus(400);
+            response.addHeader("Access-Control-Allow-Origin", "localhost:3000");
+        }
+        try {
+            followUnfollow.computeIfAbsent(currentUser, k -> new HashSet<>());
+            followUnfollow.get(currentUser).add(id);
+            response.setStatus(200);
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            response.getWriter().flush();
+            response.getWriter().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @RequestMapping(value = "/unfollow/{id}", method = RequestMethod.DELETE)
+    public void unfollow(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "id") Integer id) {
+        if (id.equals(currentUser) || id < 1 || id > allUsers().size()) {
+            response.setStatus(400);
+            response.addHeader("Access-Control-Allow-Origin", "localhost:3000");
+        }
+        try {
+            followUnfollow.get(currentUser).remove(id);
+            response.setStatus(200);
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            response.getWriter().flush();
+            response.getWriter().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public void user(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "id") int id) {
-        if (id<1) id=1;
-        if (id>allUsers().size()) id = allUsers().size();
+        if (id < 1) id = 1;
+        if (id > allUsers().size()) id = allUsers().size();
         try {
             Gson g = new Gson();
             response.setStatus(200);
-            response.getWriter().write(g.toJson(allUsers().get(id-1)));
+            response.getWriter().write(g.toJson(allUsers().get(id - 1)));
             response.addHeader("Access-Control-Allow-Origin", "*");
             response.getWriter().flush();
             response.getWriter().close();
@@ -123,32 +159,32 @@ public class Controller {
         }
     }
 
+
     // size 2 page 2
     private List<User> someUsers(int pageSize, int page) {
-        if (pageSize>allUsers().size()) {
+        if (pageSize > allUsers().size()) {
             pageSize = allUsers().size();
         }
         System.out.println(pageSize);
-        System.out.println( allUsers().size());
+        System.out.println(allUsers().size());
         List<User> su = new ArrayList<>();
-        for (int i = pageSize*(page-1); i < pageSize*page; i++) {
+        for (int i = pageSize * (page - 1); i < pageSize * page; i++) {
             su.add(allUsers().get(i));
         }
         return su;
     }
 
 
-
     private List<User> allUsers() {
         List<User> users = new ArrayList<>();
-        for (int i = 1; i <30 ; i++) {
-            users.add(new User( i,
+        for (int i = 1; i < 30; i++) {
+            users.add(new User(i,
                     "",
                     false,
                     "Name" + i,
-                    "OK"+ i,
+                    "OK" + i,
                     "City" + i,
-                    "Russia"+ i));
+                    "Russia" + i));
         }
         return users;
     }

@@ -11,92 +11,23 @@ import java.util.*;
 @org.springframework.stereotype.Controller
 
 public class Controller {
-//        private Equipment equipment;
-//
-//        @Autowired
-//        public void setEquipment(Equipment equipment) {
-//            this.equipment = equipment;
-//
-//        }
 
-//        @GetMapping("/")
-//        public String loginPage(Model model) {
-//            model.addAttribute("equipment", equipment);
-//            return "index";
-//        }
-//
-//        @PostMapping("/")
-//        public String post(@RequestBody Equipment newEquipment, Model model, HttpServletRequest request, HttpServletResponse response) {
-//            try {
-// response.setStatus(201);
-// response.getWriter().flush();
-// response.getWriter().close();
-//            } catch (IOException e) {
-// e.printStackTrace();
-//            }
-//            equipment.setTrainingId(newEquipment.getTrainingId());
-//            Integer dur = Integer.parseInt(newEquipment.getDuration()); //min
-//            Integer factLoad = 0;
-//            while (dur>0){
-// equipment.setDistance(
-//         newEquipment.getDistance());
-// dur = decreaseDuration(dur);
-// equipment.setDuration((dur).toString());
-//
-// factLoad = increaseLoad(factLoad);
-//
-// equipment.setActualDistance(
-//         factLoad.toString()
-// );
-//            }
-//
-//            model.addAttribute("equipment",equipment);
-//
-//
-//            return "index";
-//        }
-
-//        public Integer decreaseDuration(Integer dur)  {
-//            try {
-// Thread.sleep(1000);
-//
-//            } catch (InterruptedException e) {
-// e.printStackTrace();
-//            }
-//            return dur -1;
-//        }
-//
-//        public Integer increaseLoad (Integer factLoad) {
-//            try {
-// Thread.sleep(1000);
-//
-//            } catch (InterruptedException e) {
-// e.printStackTrace();
-//            }
-//            return factLoad + 100;
-//        }
-
-
-    //    @RequestMapping(value = "/result", method = RequestMethod.GET)
-//    public String results(HttpServletRequest request, HttpServletResponse response) {
-//
-//        try {
-//            //{ "trainingId":equipment.getTrainingId(), "distance":equipment.getActualDistance()}
-//            response.getWriter().write(equipment.getTrainingId()+";"+ equipment.getActualDistance());
-//            response.getWriter().flush();
-//            response.getWriter().close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return "index";
-//    }
     private Map<Integer, Set<Integer>> followUnfollow = new HashMap<>();
+    List<User> users = new ArrayList<>();
+
+    private List<User> getAllUsers() {
+        if (users.isEmpty()) {
+            users = allUsers();
+        }
+        return users;
+    }
 
     Integer currentUser = 1;
 
     @RequestMapping(value = "/follow/{id}", method = RequestMethod.POST)
     public void follow(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "id") Integer id) {
-        if (id.equals(currentUser) || id < 1 || id > allUsers().size()) {
+
+        if (id.equals(currentUser) || id < 1 || id >getAllUsers().size()) {
             response.setStatus(400);
             response.addHeader("Access-Control-Allow-Origin", "*");
         }
@@ -113,7 +44,7 @@ public class Controller {
     }
     @RequestMapping(value = "/follow/{id}", method = RequestMethod.DELETE)
     public void unfollow(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "id") Integer id) {
-        if (id.equals(currentUser) || id < 1 || id > allUsers().size()) {
+        if (id.equals(currentUser) || id < 1 || id > getAllUsers().size()) {
             response.setStatus(400);
             response.addHeader("Access-Control-Allow-Origin", "*");
         }
@@ -129,13 +60,30 @@ public class Controller {
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public void user(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "id") int id) {
+    public void getUser(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "id") int id) {
         if (id < 1) id = 1;
-        if (id > allUsers().size()) id = allUsers().size();
+        if (id > getAllUsers().size()) id = getAllUsers().size();
         try {
             Gson g = new Gson();
             response.setStatus(200);
-            response.getWriter().write(g.toJson(allUsers().get(id - 1)));
+            response.getWriter().write(g.toJson(getAllUsers().get(id - 1)));
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            response.getWriter().flush();
+            response.getWriter().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
+    public void updateUser(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "id") Integer id, @RequestBody User user) {
+        if (id.equals(currentUser) || id < 1 || id > getAllUsers().size()) {
+            response.setStatus(400);
+            response.addHeader("Access-Control-Allow-Origin", "*");
+        }
+        try {
+            if (user.status!=null) { mapIdToUser().get(user.id).status = user.status;}
+            response.setStatus(200);
             response.addHeader("Access-Control-Allow-Origin", "*");
             response.getWriter().flush();
             response.getWriter().close();
@@ -162,14 +110,14 @@ public class Controller {
 
     // size 2 page 2
     private List<User> someUsers(int pageSize, int page) {
-        if (pageSize > allUsers().size()) {
-            pageSize = allUsers().size();
+        if (pageSize > getAllUsers().size()) {
+            pageSize = getAllUsers().size();
         }
         System.out.println(pageSize);
-        System.out.println(allUsers().size());
+        System.out.println(getAllUsers().size());
         List<User> su = new ArrayList<>();
         for (int i = pageSize * (page - 1); i < pageSize * page; i++) {
-            su.add(allUsers().get(i));
+            su.add(getAllUsers().get(i));
         }
         return su;
     }
@@ -187,5 +135,13 @@ public class Controller {
                     "Russia" + i));
         }
         return users;
+    }
+
+    private Map<Integer, User> mapIdToUser(){
+        Map<Integer,User> mapIdToUser = new HashMap<>();
+        for (User user : getAllUsers()) {
+            mapIdToUser.put(user.id, user);
+        }
+        return mapIdToUser;
     }
 }

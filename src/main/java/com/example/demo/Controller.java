@@ -42,6 +42,21 @@ public class Controller {
             e.printStackTrace();
         }
     }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public void follow(HttpServletRequest request, HttpServletResponse response, @RequestBody String body) {
+
+        try {
+            response.setStatus(200);
+            response.getWriter().write("echo:" + body);
+            response.addHeader("Access-Control-Allow-Origin", "*");
+            response.getWriter().flush();
+            response.getWriter().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @RequestMapping(value = "/follow/{id}", method = RequestMethod.DELETE)
     public void unfollow(HttpServletRequest request, HttpServletResponse response, @PathVariable(value = "id") Integer id) {
         if (id.equals(currentUser) || id < 1 || id > getAllUsers().size()) {

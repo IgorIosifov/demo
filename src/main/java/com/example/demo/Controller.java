@@ -76,9 +76,9 @@ public class Controller {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.PUT)
-    public void updateUser(HttpServletRequest request, HttpServletResponse response, @RequestBody User user) {
+    public void updateUser(HttpServletRequest request, HttpServletResponse response, @RequestBody String status) {
         try {
-            if (user.status!=null) { mapIdToUser().get(1).status = user.status;}
+            if (!status.isEmpty()) { mapIdToUser().get(1).status = status;}
             response.setStatus(200);
             response.addHeader("Access-Control-Allow-Origin", "*");
             response.getWriter().flush();

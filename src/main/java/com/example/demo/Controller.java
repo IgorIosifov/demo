@@ -42,14 +42,14 @@ public class Controller {
             e.printStackTrace();
         }
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void follow(HttpServletRequest request, HttpServletResponse response, @RequestBody String body) {
 
         try {
             response.setStatus(200);
             response.getWriter().write("echo:" + body);
-            response.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+//            response.addHeader("Access-Control-Allow-Origin", "http://localhost:3000");
             response.getWriter().flush();
             response.getWriter().close();
         } catch (IOException e) {

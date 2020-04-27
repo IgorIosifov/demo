@@ -50,7 +50,7 @@ public class Controller {
         try {
             response.setStatus(200);
             response.getWriter().write("echo:" + body);
-            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.addHeader("Access-Control-Allow-Origin", "*");
             response.getWriter().flush();
             response.getWriter().close();
         } catch (IOException e) {

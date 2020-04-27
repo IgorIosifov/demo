@@ -43,14 +43,14 @@ public class Controller {
         }
     }
 
-
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void follow(HttpServletRequest request, HttpServletResponse response, @RequestBody String body) {
 
         try {
             response.setStatus(200);
             response.getWriter().write("echo:" + body);
-            response.addHeader("Access-Control-Allow-Origin", "*");
+//            response.addHeader("Access-Control-Allow-Origin", "*");
             response.getWriter().flush();
             response.getWriter().close();
         } catch (IOException e) {

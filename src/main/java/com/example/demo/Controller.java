@@ -45,11 +45,12 @@ public class Controller {
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public void follow(HttpServletRequest request, HttpServletResponse response, @RequestBody String body) {
+    public void follow(HttpServletRequest request, HttpServletResponse response, @RequestBody Object body) {
 
         try {
             response.setStatus(200);
-            response.getWriter().write("echo:" + body);
+            Gson g = new Gson();
+            response.getWriter().write(g.toJson(body));
 //            response.addHeader("Access-Control-Allow-Origin", "*");
             response.getWriter().flush();
             response.getWriter().close();

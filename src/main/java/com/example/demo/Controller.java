@@ -50,7 +50,7 @@ public class Controller {
         try {
             response.setStatus(200);
             Gson g = new Gson();
-            response.getWriter().write(g.toJson(body+ Arrays.toString(request.getCookies())));
+            response.getWriter().write(g.toJson(body));
 //            response.addHeader("Access-Control-Allow-Origin", "*");
             response.getWriter().flush();
             response.getWriter().close();

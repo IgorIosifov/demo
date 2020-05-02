@@ -122,6 +122,7 @@ public class Controller {
         }
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/me", method = RequestMethod.GET)
     public void me(HttpServletRequest request, HttpServletResponse response) {
 

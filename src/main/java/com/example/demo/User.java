@@ -4,17 +4,15 @@ public class User {
 
     int id;
     String avatar;
-    boolean followed;
     String fullName;
     String status;
     Location location;
 
-    public User(int id, String avatar, boolean followed, String fullName, String status, String city, String country) {
+    public User(int id, String avatar,String fullName, String role, String city, String country) {
         this.id = id;
         this.avatar = avatar;
-        this.followed = followed;
         this.fullName = fullName;
-        this.status = status;
+        this.status = role;
         this.location = new Location(city, country);
     }
 

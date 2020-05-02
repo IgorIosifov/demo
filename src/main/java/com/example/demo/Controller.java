@@ -1,8 +1,10 @@
 package com.example.demo;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -120,6 +122,46 @@ public class Controller {
         }
     }
 
+    @RequestMapping(value = "/me", method = RequestMethod.GET)
+    public void me(HttpServletRequest request, HttpServletResponse response) {
+
+        try {
+            Cookie [] cookies = request.getCookies();
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("key") && cookie.getValue().equals("21e12ekd129d01ijdoi12odm12mdl12mlmqwd"))  {
+                    Gson g = new Gson();
+                    response.setStatus(200);
+                    response.getWriter().write((g.toJson(getAllUsers().get(0))));
+                } else {
+                    response.setStatus(400);
+                }
+                response.getWriter().flush();
+                response.getWriter().close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public void login(HttpServletRequest request, HttpServletResponse response, @RequestBody String body) {
+
+        try {
+            Gson g = new Gson();
+            LoginPass lg = g.fromJson(body, LoginPass.class);
+            if (lg.login.equals("Login") && lg.password.equals("Pass")) {
+                response.setStatus(200);
+                response.addCookie(new Cookie("key", "21e12ekd129d01ijdoi12odm12mdl12mlmqwd"));
+            } else {
+                response.setStatus(400);
+            }
+            response.getWriter().flush();
+            response.getWriter().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     // size 2 page 2
     private List<User> someUsers(int pageSize, int page) {
@@ -138,12 +180,19 @@ public class Controller {
 
     private List<User> allUsers() {
         List<User> users = new ArrayList<>();
-        for (int i = 1; i < 30; i++) {
+        for (int i = 1; i < 10; i++) {
             users.add(new User(i,
                     "",
-                    false,
                     "Name" + i,
-                    "OK" + i,
+                    "Courier",
+                    "City" + i,
+                    "Russia" + i));
+        }
+        for (int i = 10; i < 20; i++) {
+            users.add(new User(i,
+                    "",
+                    "Name" + i,
+                    "Client",
                     "City" + i,
                     "Russia" + i));
         }
